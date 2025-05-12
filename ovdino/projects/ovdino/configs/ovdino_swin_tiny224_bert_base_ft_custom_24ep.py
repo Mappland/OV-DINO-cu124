@@ -18,7 +18,7 @@ train = get_config("common/train.py").train
 
 # modify training config
 train.init_checkpoint = init_checkpoint
-train.output_dir = "./25_4_22_all_cup_output"
+train.output_dir = "./py_config_output_dir"
 
 # max training iterations, 120000 / 32 * 24 = 90000 -> 90000
 train.max_iter = 90000
@@ -34,7 +34,7 @@ train.clip_grad.params.norm_type = 2
 # set training devices
 train.device = "cuda"
 model.device = train.device
-model.num_classes = 141
+model.num_classes = 959
 
 # amp
 train.amp.enabled = True
@@ -51,12 +51,12 @@ optimizer.params.lr_factor_func = lambda module_name: (
 )
 
 # modify dataloader config
-dataloader.train.num_workers = 8
+dataloader.train.num_workers = 60
 
 # please notice that this is total batch size.
 # surpose you're using 4 gpus for training and the batch size for
 # each gpu is 64/4 = 4
-dataloader.train.total_batch_size = 60
+dataloader.train.total_batch_size = 48
 
 # dump the testing results into output_dir for visualization
 dataloader.evaluator.output_dir = train.output_dir

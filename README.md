@@ -115,22 +115,23 @@ cd OV-DINO
 export root_dir=$(realpath ./)
 cd $root_dir/ovdino
 
-# Optional: set CUDA_HOME for cuda11.6.
-# OV-DINO utilizes the cuda11.6 default, if your cuda is not cuda11.6, you need first export CUDA_HOME env manually.
-export CUDA_HOME="your_cuda11.6_path"
+# Optional: set CUDA_HOME for cuda12.4.
+# OV-DINO utilizes the cuda12.4 default, if your cuda is not cuda12.4, you need first export CUDA_HOME env manually.
+export CUDA_HOME="/usr/local/cuda-12.4"
 export PATH=$CUDA_HOME/bin:$PATH
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 echo -e "$log_format cuda version:\n$(nvcc -V)"
 
 # create conda env for ov-dino
-conda create -n ovdino -y
+sudo apt update && sudo apt-get install zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev liblzma-dev libbz2-dev build-essential curl cmake screen unzip git wget tar gcc pkg-config ninja-build g++ -y
+conda create -n ovdino python=3.10 -y
 conda activate ovdino
-conda install pytorch-cuda=11.6 torchvision==0.14.1 torchaudio==0.13.1  -c pytorch -c nvidia -y
-conda install gcc=9 gxx=9 -c conda-forge -y # Optional: install gcc9
-python -m pip install -e detectron2-717ab9
+pip install torch torchaudio torchvision transformers 'pytz>=2020.1' 'python-dateutil>=2.8.2'
+pip install -e detectron2-717ab9
 pip install -e ./
+pip install fairscale
 
-# Optional: create conda env for ov-sam, it may not compatible with ov-dino, so we create a new env.
+# 本处暂未修改适配 Optional: create conda env for ov-sam, it may not compatible with ov-dino, so we create a new env.
 # ov-sam = ov-dino + sam2
 conda create -n ovsam -y
 conda activate ovsam

@@ -68,7 +68,7 @@ class Trainer(SimpleTrainer):
             if grad_scaler is None:
                 from torch.amp import GradScaler
 
-                grad_scaler = GradScaler('cuda')
+                grad_scaler = GradScaler("cuda")
         self.grad_scaler = grad_scaler
 
         # set True to use amp training
@@ -95,7 +95,7 @@ class Trainer(SimpleTrainer):
         """
         If you want to do something with the losses, you can wrap the model.
         """
-        with autocast(device_type='cuda', enabled=self.amp):
+        with autocast(device_type="cuda", enabled=self.amp):
             loss_dict = self.model(data)
             if isinstance(loss_dict, torch.Tensor):
                 losses = loss_dict

@@ -29,7 +29,7 @@ def setup_dist_args(args):
     if num_nodes is not None and num_nodes > 1:
         node_rank = int(os.getenv("NODE_RANK", None))
         master_addr = os.getenv("MASTER_ADDR", "localhost")
-        master_port = os.getenv("MASTER_PORT", "29500")
+        master_port = os.getenv("MASTER_PORT", "39510")
 
         args.num_machines = num_nodes
         args.machine_rank = node_rank
